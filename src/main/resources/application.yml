@@ -1,6 +1,18 @@
 spring:
   application:
     name: loa-pulse-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:15432/loapulse}
+    username: ${DB_USERNAME:loapulse}
+    password: ${DB_PASSWORD:loapulse}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:16379}
 
 management:
   endpoints:
