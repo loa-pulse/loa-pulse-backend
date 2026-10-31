@@ -1,6 +1,7 @@
 package com.loapulse.collector.infrastructure.lostark;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
 
@@ -26,6 +27,21 @@ final class RateLimitHeaders {
 		int remaining = Math.toIntExact(required(headers, REMAINING));
 		Instant resetAt = Instant.ofEpochSecond(required(headers, RESET));
 		return new RateLimitStatus(limit, remaining, resetAt);
+	}
+
+	/**
+	 * 실패 응답처럼 헤더가 없을 수도 있는 경우에 쓴다. 헤더가 없거나 읽을 수 없으면 빈 값이다.
+	 */
+	static Optional<RateLimitStatus> tryParse(HttpHeaders headers) {
+		if (headers == null) {
+			return Optional.empty();
+		}
+		try {
+			return Optional.of(parse(headers));
+		}
+		catch (IllegalStateException | ArithmeticException ex) {
+			return Optional.empty();
+		}
 	}
 
 	private static long required(HttpHeaders headers, String name) {

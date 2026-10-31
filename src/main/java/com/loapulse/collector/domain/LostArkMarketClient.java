@@ -9,6 +9,8 @@ public interface LostArkMarketClient {
 
 	/**
 	 * 카테고리 검색 페이지 하나를 등급순으로 가져온다 (수집 단위, docs D26).
+	 *
+	 * @throws LostArkApiException 호출이 실패했을 때. 원인은 {@link LostArkApiException#reason()}으로 구분한다
 	 */
 	MarketSearchPage search(MarketSearchRequest request);
 
