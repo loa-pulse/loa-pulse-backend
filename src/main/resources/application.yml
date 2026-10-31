@@ -14,6 +14,13 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:16379}
 
+loapulse:
+  lostark:
+    base-url: https://developer-lostark.game.onstove.com
+    api-key: ${LOSTARK_API_KEY:}
+    connect-timeout: 3s
+    read-timeout: 5s
+
 management:
   endpoints:
     web:
